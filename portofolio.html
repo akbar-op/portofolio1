@@ -1,0 +1,519 @@
+<!DOCTYPE html><html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio Web Designer</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+body {
+  background-color: #0e0b16;
+  color: #e0e0e0;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  background-image:repeating-linear-gradient(45deg, rgba(162, 89, 255, 0.05) 0, rgba(162, 89, 255, 0.05) 1px, transparent 1px, transparent 20px);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 30% 50%, rgba(162, 89, 255, 0.1), transparent 60%),
+              radial-gradient(circle at 70% 80%, rgba(108, 43, 217, 0.1), transparent 60%),
+              radial-gradient(circle at 70% 70%, rgba(108, 43, 217, 0.25), transparent 70%);
+  z-index: -1;
+  filter: blur(80px);
+  bottom: -100px;
+  right: -100px;
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  filter: blur(100px);
+  animation: moveBlob2 18s ease-in-out infinite alternate;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background: rgba(10, 8, 20, 0.8);
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(138, 43, 226, 0.3);
+  animation: slideDown 1s ease-out;
+}
+
+header h1 {
+  font-size: 1.8em;
+  color: #a259ff;
+  font-weight: 600;
+  letter-spacing: 1px;
+  animation: glowText 2s ease-in-out infinite alternate;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #e0e0e0;
+  transition: 0.3s;
+}
+
+nav ul li a:hover {
+  color: #a259ff;
+}
+
+section {
+  padding: 100px 50px;
+  min-height: 100vh;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  animation: fadeIn 1.2s ease-in-out;
+}
+
+.hero h2 {
+  font-size: 2.5em;
+  color: #a259ff;
+}
+
+.hero p {
+  max-width: 600px;
+  margin-top: 15px;
+  color: #c5c5c5;
+}
+
+.about {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.photo-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.photo-wrapper::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, #a259ff, #6c2bd9, #9b5de5, #a259ff);
+  filter: blur(8px);
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.photo-wrapper:hover::before {
+  opacity: 1;
+  animation: rotateGlow 4s linear infinite;
+}
+
+.about img {
+  position: relative;
+  z-index: 2;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #a259ff;
+  transition: transform 0.5s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 25px rgba(162, 89, 255, 0.2);
+}
+
+.about img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 25px rgba(162, 89, 255, 0.4);
+}
+
+.about-text {
+  max-width: 600px;
+}
+
+.about-text h3 {
+  color: #a259ff;
+  margin-bottom: 15px;
+}
+
+.skills {
+  text-align: center;
+}
+
+.skills h3 {
+  color: #a259ff;
+  margin-bottom: 30px;
+}
+
+.skill-bars {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.skill {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.skill span {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.bar {
+  height: 10px;
+  background: #1a1325;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 10px;
+  background: linear-gradient(90deg, #a259ff, #6c2bd9);
+  width: 0;
+  border-radius: 5px;
+  animation: loadBar 2s ease forwards;
+}
+
+@keyframes loadBar {
+  from { width: 0; }
+}
+
+#projects {
+  padding: 80px 0;
+  text-align: center;
+  position: relative;
+}
+
+#projects h2 {
+  color: #a259ff;
+  font-size: 2.5em;
+  margin-bottom: 50px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.projects-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  z-index: 2;
+  position: relative;
+}
+
+.project-card {
+  background-color: rgba(25, 20, 35, 0.9);
+  border-radius: 20px;
+  overflow: hidden;
+  width: 300px;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  box-shadow: 0 0 20px rgba(162, 89, 255, 0.15);
+}
+
+.project-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 40px rgba(162, 89, 255, 0.3);
+}
+
+.project-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  filter: brightness(0.85);
+  transition: filter 0.3s ease;
+}
+
+.project-card:hover img {
+  filter: brightness(1);
+}
+
+.project-card h3 {
+  color: #fff;
+  margin-top: 15px;
+  font-size: 1.3em;
+}
+
+.project-card p {
+  color: #c2b5e6;
+  font-size: 0.9em;
+  padding: 0 20px 20px;
+}
+.contact {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.contact h3 {
+  color: #a259ff;
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+input, textarea {
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  background: #1a1325;
+  color: #f2f2f2;
+  outline: none;
+  resize: none;
+}
+
+input:focus, textarea:focus {
+  border: 1px solid #a259ff;
+  box-shadow: 0 0 10px rgba(162, 89, 255, 0.4);
+}
+
+button {
+  padding: 12px;
+  border: none;
+  background: #a259ff;
+  color: #fff;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #8b44e0;
+  box-shadow: 0 0 15px rgba(162, 89, 255, 0.4);
+}
+
+footer {
+  background: #0b0614;
+  text-align: center;
+  padding: 20px;
+  color: #aaa;
+  border-top: 1px solid rgba(162, 89, 255, 0.2);
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: -100px;
+  left: -100px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle at 30% 30%, rgba(162, 89, 255, 0.3), transparent 70%);
+  border-radius: 50%;
+  filter: blur(120px);
+  animation: moveBlob 15s ease-in-out infinite alternate;
+  z-index: -1;
+}
+
+@keyframes moveBlob {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(50px, 60px); }
+}
+
+@keyframes moveBlob2 {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-60px, -40px); }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes glowText {
+  from {
+    text-shadow: 0 0 10px #a259ff, 0 0 20px #7a3ce8;
+  }
+  to {
+    text-shadow: 0 0 20px #c084fc, 0 0 40px #9d5cff;
+  }
+}
+
+@keyframes rotateGlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes float {
+  0% { transform: translateY(0); opacity: 0.4; }
+  50% { transform: translateY(-20px); opacity: 0.6; }
+  100% { transform: translateY(0); opacity: 0.4; }
+}
+
+.floating-dot {
+  position: fixed;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(162, 89, 255, 0.15), transparent 70%);
+  border-radius: 50%;
+  animation: float 6s ease-in-out infinite;
+  z-index: -1;
+}
+
+.dot1 { top: 20%; left: 10%; animation-delay: 0s; }
+.dot2 { top: 60%; right: 15%; animation-delay: 3s; }
+.dot3 { bottom: 10%; left: 40%; animation-delay: 1.5s; }
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+  </style>
+</head>
+<body>
+  <div class="floating-dot dot1"></div>
+  <div class="floating-dot dot2"></div>
+  <div class="floating-dot dot3"></div>
+  <header>
+    <h1>Portofolio</h1>
+    <nav>
+      <ul>
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#about">Tentang</a></li>
+        <li><a href="#skills">Keahlian</a></li>
+        <li><a href="#projects">Proyek</a></li>
+        <li><a href="#contact">Kontak</a></li>
+      </ul>
+    </nav>
+  </header>  
+
+  <section id="hero" class="hero">
+    <h2>Hi, Saya M. Alek Akbar</h2>
+    <p>Saya bisa membuat desain web modern, interaktif, dan responsif dengan sentuhan elegan dan UX yang kuat.</p>
+  </section> 
+   
+  <section id="about" class="about">
+    <div class="photo-wrapper">
+      <img src="IMG-20241018-WA0011.jpg" alt="Foto Saya">
+    </div>
+    <div class="about-text">
+      <h3>Tentang Saya</h3>
+      <p>Saya seorang Web Designer yang fokus pada tampilan visual yang clean dan UX yang nyaman. Dengan pengalaman di HTML, CSS, dan animasi interaktif, saya berusaha menciptakan website yang nggak cuma indah dilihat tapi juga enak digunakan.</p>
+    </div>
+  </section> 
+
+  <section id="skills" class="skills">
+    <h3>Keahlian Saya</h3>
+    <div class="skill-bars">
+      <div class="skill">
+        <span>HTML</span>
+        <div class="bar"><div class="progress" style="width: 95%"></div></div><p>95%</p>
+      </div>
+      <div class="skill">
+        <span>CSS</span>
+        <div class="bar"><div class="progress" style="width: 90%"></div></div><p>90%</p>
+      </div>
+      <div class="skill">
+        <span>JavaScript</span>
+        <div class="bar"><div class="progress" style="width: 55%"></div></div><p>55%</p>
+      </div>
+      <div class="skill">
+        <span>UI/UX Design</span>
+        <div class="bar"><div class="progress" style="width: 65%"></div></div><p>5%</p>
+      </div>
+    </div>
+  </section> 
+  
+  <section id="projects">
+  <h2>My Projects</h2>
+  <div class="projects-container">
+    <div class="project-card fade-in">
+      <img src="Cuplikan layar 2025-10-31 102522.png" alt="Project 1">
+      <h3>Website Penjualan</h3>
+      <p>Desain Web Penjualan laptop yang menarik.</p>
+    </div>
+    <div class="project-card fade-in">
+      <img src="Cuplikan layar 2025-10-31 102612.png" alt="Project 2">
+      <h3>Formulir Pendaftaran Siswa</h3>
+      <p>Formulir pendaftaran siswa yang simpel.</p>
+    </div>
+    <div class="project-card fade-in">
+      <img src="Cuplikan layar 2025-10-31 102941.png" alt="Project 3">
+      <h3>Tampilan Beranda Facebook Clone</h3>
+      <p>Saya dapat membuat tampilannya lumayan mirip meskipun masih ada banyak yang kurang.</p>
+    </div>
+  </div>
+  </section>
+  
+  <section id="contact" class="contact">
+    <h3>Hubungi Saya</h3>
+    <form>
+      <input type="text" placeholder="Nama Anda" required>
+      <input type="email" placeholder="Email Anda" required>
+      <textarea rows="5" placeholder="Pesan Anda" required></textarea>
+      <button type="submit">Kirim Pesan</button>
+    </form>
+  </section>  
+  
+  <footer>
+    <p>© 2025 Web Designer. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+  const faders = document.querySelectorAll('.fade-in');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  faders.forEach(fader => observer.observe(fader));
+</script>
+
+</body>
+</html>
